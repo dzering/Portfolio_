@@ -16,8 +16,10 @@ namespace Galaxy
 
         void Start()
         {
-            var gameObjectBuilder = new GameObjectBuilder();
-            GameObject station = gameObjectBuilder.Visual().Name("Station").Sprite(sprite);
+            //var gameObjectBuilder = new GameObjectBuilder();
+            //GameObject station = gameObjectBuilder.Visual().Name("Station").Sprite(sprite).Physics().Rigidbody2D(1000);
+
+            new GameObject().SetName("Station").AddRigidbody(10000).AddSprite(sprite);
 
             screenBounds = new ScreenBounds();
             spawnEnemy = new List<ISpawnEnemy>();

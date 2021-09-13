@@ -18,6 +18,7 @@ namespace Galaxy
         {
             var component = GetOrAddComponent<Rigidbody2D>();
             component.mass = mass;
+            component.gravityScale = 0;
             return this;
         }
 

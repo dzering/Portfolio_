@@ -11,18 +11,20 @@ namespace Galaxy
         [SerializeField] float torqueVelocity;
 
         public override event Action OnDeath;
+        Transform target;
 
         public float ForceDamage { get; set ; }
 
         private void Start()
         {
             ForceDamage = 40;
+            target = Player.Instance;
 
             Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
             rb2d.gravityScale = 0;
 
             var enemyRotation = new EnemyRotation(rb2d);
-            var enemyImpuls = new EnemyImpulse(rb2d, new Vector3(1,1,0), 50f);
+            var enemyImpuls = new EnemyImpulse(rb2d, transform, 5000f);
             enemyImpuls.AddImpulse();
             enemyRotation.StartRotation(torqueVelocity);
         }

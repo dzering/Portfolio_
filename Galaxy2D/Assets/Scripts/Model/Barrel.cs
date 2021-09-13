@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Galaxy
 {
+
     internal sealed class Barrel : IFire
     {
         readonly Rigidbody2D projectilePref;
         readonly Transform pointProjectile;
-        readonly BarrelProperties barrelProperty;
+        public BarrelProperties barrelProperty;
         float nextShotTime;
 
         public Barrel(Rigidbody2D projectilePref, Transform pointProjectile, BarrelProperties property)
@@ -17,6 +18,7 @@ namespace Galaxy
             this.pointProjectile = pointProjectile;
             barrelProperty = property;
         }
+
 
         public void Fire()
         {

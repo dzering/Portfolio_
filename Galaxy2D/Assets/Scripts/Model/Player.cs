@@ -6,31 +6,43 @@ namespace Galaxy
 {
     internal sealed class Player : MonoBehaviour
     {
+        [SerializeField] Health health;
         [SerializeField] float acceleration;
         [SerializeField] float speed;
         [SerializeField] float speedRotation;
         [SerializeField] Rigidbody2D projectilePref;
-        [SerializeField] Transform prokectileStartPoint;
+        [SerializeField] Transform projectileStartPoint;
         [SerializeField] BarrelProperties barrelProperty;
-        public static Player Instance { get; private set; }
+
+        HealthController healthController;
+        public static Transform Instance { get; private set; }
 
         Camera cam;
 
         InputController inputController;
         PlayerShip ship;
-        IFire barrel;
+        Barrel barrel;
 
 
         void Awake()
         {
             inputController = new InputController(cam);
-            barrel = new Barrel(projectilePref, prokectileStartPoint, barrelProperty);
+            barrel = new Barrel(projectilePref, projectileStartPoint, barrelProperty);
             cam = Camera.main;
             var moveTransform = new AccelerationMove(acceleration, speed, transform);
             var rotationTransform = new ShipRotation(transform);
 
-
+            Instance = transform;
             ship = new PlayerShip(moveTransform, rotationTransform);
+
+            healthController = new HealthController(health, transform);
+
+            // Atack modifier by Chain of Responsibility;
+
+            var modidier = new PlayerModifier(barrel.barrelProperty);
+            modidier.Add(new AtackPlayerModifier(barrelProperty, 500, 0.05f));
+            modidier.Handle();
+
         }
 
 

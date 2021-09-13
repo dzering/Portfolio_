@@ -9,12 +9,21 @@ namespace Galaxy
         Rigidbody2D rb2d;
         Vector3 directionMove;
         float force;
+        Transform transform;
 
-        public EnemyImpulse(Rigidbody2D rb2d, Vector3 playerPosition, float force)
+        public EnemyImpulse(Rigidbody2D rb2d, Transform transform, float force)
         {
+            this.transform = transform;
             this.rb2d = rb2d;
             this.force = force;
-            directionMove = playerPosition;
+            if (!Player.Instance)
+            {
+                directionMove = Vector3.zero;
+            }
+            else
+            {
+                directionMove = Player.Instance.transform.position - transform.position;
+            }
         }
 
         public void AddImpulse()
