@@ -1,0 +1,62 @@
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            char[,] arr = new char[4, 9] {{'_','*','_','_','_','_','_','_','_'},
+
+                                          {'*','_','_','_','*','_','*','_','_'},
+
+                                          {'_','*','_','_','*','*','*','_','*'},
+
+                                          {'*','*','_','*','*','*','*','_','*'} };
+
+
+            Print(arr);
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                //Количество звездочек в строке
+                int k = 1 + i * 2;
+
+                //Середина строки
+                int mid = arr.GetLength(1) / 2;
+
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (j < mid - k / 2 || j > mid + k / 2) 
+                    {
+                        if(arr[i,j] == '*')
+                        {
+                            for (int m = mid - k/2; m <= mid + k / 2; m++)
+                            {
+                                if(arr[i,m] != '*')
+                                {
+                                    var temp = arr[i, m];
+                                    arr[i, m] = arr[i, j];
+                                    arr[i, j] = temp;
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            Print(arr);
+            ReadLine();
+
+        }
+
+        public static void Print(char[,] arr)
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    Write(arr[i, j]);
+                }
+                WriteLine();
+            }
+        }
+    }
